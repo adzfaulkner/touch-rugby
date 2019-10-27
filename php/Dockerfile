@@ -1,4 +1,4 @@
-FROM php:7.2.9-fpm-alpine
+FROM php:7.3.11-fpm-alpine
 
 RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
   docker-php-ext-configure gd \

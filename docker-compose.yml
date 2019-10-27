@@ -34,7 +34,6 @@ services:
       - ./php/wp/src:/app/wp
     depends_on:
       - php
-      - mysql
     restart: always
     networks:
       - backend
@@ -46,19 +45,6 @@ services:
       - ./php/wp/src:/app/wp
     expose:
       - 9000
-    depends_on:
-      - mysql
-    restart: always
-    networks:
-      - backend
-
-  mysql:
-    build: ./mysql
-    env_file: ./mysql/.env
-    ports:
-      - '3306:3306'
-    volumes:
-      - ./mysql/db-data:/var/lib/mysql
     restart: always
     networks:
       - backend
