@@ -3,35 +3,12 @@ version: '3.3'
 services:
   nginx:
     build:
-      context: ./nginx/proxy
+      context: ./nginx/backend
       dockerfile: Dockerfile-dev
-    image: nginx:alpine
-    restart: always
     ports:
       - '80:80'
     volumes:
-      - ./php/wp/src:/app/wp
-    depends_on:
-      - backend
-      - frontend
-    networks:
-      - backend
-      - frontend
-
-  frontend:
-    image: nginx:1.15.2-alpine
-    restart: always
-    volumes:
-      - ./holding:/usr/share/nginx/html/:ro
-    networks:
-      - frontend
-
-  backend:
-    build:
-      context: ./nginx/backend
-      dockerfile: Dockerfile-dev
-    volumes:
-      - ./php/wp/src:/app/wp
+      - ./php/wp/src:/app
     depends_on:
       - php
       - mysql
@@ -43,7 +20,7 @@ services:
     build: ./php
     env_file: ./php/.env
     volumes:
-      - ./php/wp/src:/app/wp
+      - ./php/wp/src:/app
     expose:
       - 9000
     depends_on:
@@ -60,8 +37,9 @@ services:
       - '3306:3306'
     volumes:
       - ./mysql/db-data:/var/lib/mysql
-      - ./mysql/sql:/home/sql
+      - ./mysql/sql:/docker-entrypoint-initdb.d
     restart: always
+
     networks:
       - backend
 
