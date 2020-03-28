@@ -26,6 +26,7 @@ services:
     build: ./php
     env_file: ./php/.env
     volumes:
+      - ./php/vendor:/app/vendor
       - ./php/wp/src:/app
     expose:
       - 9000
