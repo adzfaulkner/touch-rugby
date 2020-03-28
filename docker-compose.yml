@@ -11,9 +11,16 @@ services:
       - ./php/wp/src:/app
     depends_on:
       - php
+      - composer
     restart: always
     networks:
       - backend
+
+  composer:
+    image: composer:latest
+    command: ["composer", "install"]
+    volumes:
+      - ./php:/app
 
   php:
     build: ./php
