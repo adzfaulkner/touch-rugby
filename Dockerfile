@@ -21,7 +21,7 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 
-COPY php/composer.* /app
+COPY php/composer.* /app/
 
 COPY php/wp/src /app/src
 
