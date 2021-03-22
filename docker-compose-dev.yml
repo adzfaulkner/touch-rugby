@@ -47,7 +47,6 @@ services:
       - ./mysql/db-data:/var/lib/mysql
       - ./mysql/sql:/docker-entrypoint-initdb.d
     restart: always
-
     networks:
       - backend
 
