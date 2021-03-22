@@ -3,57 +3,51 @@ version: '3.3'
 services:
   nginx:
     build:
-      context: ./nginx/backend
-      dockerfile: Dockerfile-dev
+      context: .
+      target: nginx
     ports:
       - '80:80'
     volumes:
-      - ./php/wp/src:/app
+      - ./php/wp/src:/app/src
     depends_on:
       - php
-      - mysql
     restart: always
     networks:
-      - backend
+      - touchrugby
 
   php:
-    build: ./php
+    build:
+      context: .
+      target: php
     env_file: ./php/.env
     volumes:
       - ./php/vendor:/app/vendor
-      - ./php/wp/src:/app
-    expose:
-      - 9000
+      - ./php/wp/src:/app/src
     depends_on:
       - mysql
-      - composer
     restart: always
     networks:
-      - backend
-
-  composer:
-    image: composer:latest
-    command: ["composer", "install"]
-    volumes:
-      - ./php:/app
+      - touchrugby
 
   mysql:
-    build: ./mysql
+    build:
+      context: .
+      target: mysql
     env_file: ./mysql/.env
     command: '--default-authentication-plugin=mysql_native_password'
     ports:
       - '3306:3306'
     volumes:
-      - ./mysql/db-data:/var/lib/mysql
-      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - touchrugby-dbdata:/var/lib/mysql
     restart: always
     networks:
-      - backend
+      - touchrugby
 
 networks:
-  backend:
+  touchrugby:
     external:
-      name: backend
+      name: touchrugby
 
 volumes:
-  wp-volume:
+  touchrugby-dbdata:
+     external: true

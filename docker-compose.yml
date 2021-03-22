@@ -1,43 +1,24 @@
 version: '3.3'
 
 services:
+  php:
+    image: touchrugby-php:latest
+    env_file: ./php/.env
+    restart: always
+    networks:
+      - touchrugby
+
   nginx:
-    build:
-      context: ./nginx/backend
-      dockerfile: Dockerfile
+    image: touchrugby-nginx:latest
     ports:
       - '80:80'
-    volumes:
-      - ./php/wp/src:/app
     depends_on:
       - php
-      - composer
     restart: always
     networks:
-      - backend
-
-  composer:
-    image: composer:latest
-    command: ["composer", "install"]
-    volumes:
-      - ./php:/app
-
-  php:
-    build: ./php
-    env_file: ./php/.env
-    volumes:
-      - ./php/vendor:/app/vendor
-      - ./php/wp/src:/app
-    expose:
-      - 9000
-    restart: always
-    networks:
-      - backend
+      - touchrugby
 
 networks:
-  backend:
+  touchrugby:
     external:
-      name: backend
-
-volumes:
-  wp-volume:
+      name: touchrugby
