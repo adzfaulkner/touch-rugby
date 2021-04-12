@@ -26,7 +26,8 @@ COPY php/composer.* /app/
 COPY php/wp/src /app/src
 
 RUN apk --no-cache add shadow && \
-    usermod -u 1000 www-data
+    usermod -u 1000 www-data && \
+    chown -R www-data:www-data /app
 
 ENTRYPOINT sh -c "composer install && php-fpm"
 

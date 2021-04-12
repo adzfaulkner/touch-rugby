@@ -5,6 +5,8 @@ services:
     image: touchrugby-php:latest
     env_file: ./php/.env
     restart: always
+    volumes:
+    - ./php/wp/src/wp-content:/app/src/wp-content
     networks:
       - touchrugby
 
