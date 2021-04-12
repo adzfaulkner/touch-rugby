@@ -6,7 +6,7 @@ services:
     env_file: ./php/.env
     restart: always
     volumes:
-    - ./php/wp/src/wp-content:/app/src/wp-content
+      - wp-content:/app/src/wp-content
     networks:
       - touchrugby
 
@@ -17,6 +17,8 @@ services:
     depends_on:
       - php
     restart: always
+    volumes:
+      - wp-content:/app/src/wp-content
     networks:
       - touchrugby
 
@@ -24,3 +26,7 @@ networks:
   touchrugby:
     external:
       name: touchrugby
+
+volumes:
+  wp-content:
+      external: true
