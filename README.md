@@ -4,7 +4,7 @@
 
 ### Dev
 
-1. Run docker-compose up
+1. Run `docker-compose up`
 
 ### Prod
 
