@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Docker PHP Image
         run: >
-          mkdir -p mysql/sql && docker build 
+          ls && mkdir -p mysql/sql && docker build 
           --target php 
           --tag touchrugby-php .
       - name: Build Docker NginX Image
