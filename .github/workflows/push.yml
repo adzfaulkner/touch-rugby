@@ -3,7 +3,7 @@ name: Dev - Build and deploy Docker to AWS Lightsail Container Service
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build_and_deploy_to_lightsail_container_service:
